@@ -1,0 +1,46 @@
+{
+ "added": [
+  {
+   "id": 1,
+   "type": "implementation",
+   "installed_name": "lifecycle-viewmodel-compose",
+   "gpm_dep": {
+    "artifact_id": "lifecycle-viewmodel-compose",
+    "default_type": "implementation",
+    "docs": "https://mvnrepository.com/artifact/androidx.lifecycle/lifecycle-viewmodel-compose",
+    "get_from": "Google",
+    "group_id": "androidx.lifecycle",
+    "name": "Lifecycle ViewModel Compose",
+    "description": "Compose integration with Lifecycle ViewModel"
+   }
+  },
+  {
+   "id": 2,
+   "type": "implementation",
+   "installed_name": "navigation-compose",
+   "gpm_dep": {
+    "artifact_id": "navigation-compose",
+    "default_type": "implementation",
+    "docs": "https://mvnrepository.com/artifact/androidx.navigation/navigation-compose",
+    "get_from": "Google",
+    "group_id": "androidx.navigation",
+    "name": "Compose Navigation",
+    "description": "Compose integration with Navigation"
+   }
+  },
+  {
+   "id": 3,
+   "type": "implementation",
+   "installed_name": "hilt-navigation-compose",
+   "gpm_dep": {
+    "artifact_id": "hilt-navigation-compose",
+    "default_type": "implementation",
+    "docs": "https://mvnrepository.com/artifact/androidx.hilt/hilt-navigation-compose",
+    "get_from": "Google",
+    "group_id": "androidx.hilt",
+    "name": "Navigation Compose Hilt Integration",
+    "description": "Navigation Compose Hilt Integration"
+   }
+  }
+ ]
+}
