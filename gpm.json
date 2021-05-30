@@ -83,6 +83,20 @@
     "name": "Dexter",
     "description": "Dexter is an Android library to handle runtime permissions for Marshmallow easily"
    }
+  },
+  {
+   "id": 7,
+   "type": "implementation",
+   "installed_name": "datastore",
+   "gpm_dep": {
+    "artifact_id": "datastore",
+    "default_type": "implementation",
+    "docs": "https://mvnrepository.com/artifact/androidx.datastore/datastore",
+    "get_from": "Google",
+    "group_id": "androidx.datastore",
+    "name": "Android DataStore",
+    "description": "Android DataStore - contains the underlying store used by each serialization method along with components that require an Android dependency"
+   }
   }
  ]
 }

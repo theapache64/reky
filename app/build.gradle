@@ -38,6 +38,7 @@ android {
     }
     buildFeatures {
         compose true
+        dataBinding true
     }
     composeOptions {
         kotlinCompilerExtensionVersion compose_version
@@ -74,4 +75,10 @@ dependencies {
 
     // Dexter : Dexter is an Android library to handle runtime permissions for Marshmallow easily
     implementation 'com.karumi:dexter:6.2.2'
+
+    // Assent Core : Assent Core
+    implementation 'com.afollestad.assent:core:3.0.0-RC4'
+
+    // DataStore : Preference
+    implementation 'androidx.datastore:datastore-preferences:1.0.0-beta01'
 }

@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Reky</string>
     <string name="main_error_permission">Can\'t proceed without permissions</string>
+    <string name="config_label_records_dir">Records Directory</string>
+    <string name="config_title">Setup Reky</string>
+    <string name="config_action_finish">FINISH</string>
+    <string name="config_error_empty_dir">Please set the recordings directory</string>
 </resources>

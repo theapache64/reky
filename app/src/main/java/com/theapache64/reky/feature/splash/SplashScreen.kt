@@ -12,7 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.theapache64.reky.R
 
 /**
@@ -20,14 +20,14 @@ import com.theapache64.reky.R
  */
 @Composable
 fun SplashScreen(
-    viewModel: SplashViewModel = viewModel(),
-    onSplashFinished: () -> Unit
+    viewModel: SplashViewModel = hiltViewModel(),
+    onSplashFinished: (isConfigSet: Boolean) -> Unit
 ) {
 
     val isSplashFinished by viewModel.isSplashFinished.collectAsState()
 
     if (isSplashFinished) {
-        onSplashFinished()
+        onSplashFinished(viewModel.isConfigSet)
     }
 
     Box(
