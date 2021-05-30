@@ -1,5 +1,6 @@
 package com.theapache64.reky.feature.users
 
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 
@@ -11,5 +12,5 @@ fun UsersScreen(
     viewModel: UsersViewModel = hiltViewModel(),
     onUserClicked: () -> Unit
 ) {
-
+    Text(text = "$viewModel")
 }

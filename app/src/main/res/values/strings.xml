@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Reky</string>
+    <string name="main_error_permission">Can\'t proceed without permissions</string>
 </resources>

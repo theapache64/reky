@@ -68,4 +68,10 @@ dependencies {
 
     // Navigation Compose Hilt Integration : Navigation Compose Hilt Integration
     implementation 'androidx.hilt:hilt-navigation-compose:1.0.0-alpha02'
+
+    // Timber : No-nonsense injectable logging.
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+
+    // Dexter : Dexter is an Android library to handle runtime permissions for Marshmallow easily
+    implementation 'com.karumi:dexter:6.2.2'
 }
