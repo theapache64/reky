@@ -13,10 +13,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.theapache64.reky.R
+import com.theapache64.reky.ui.composable.PageTitle
 import timber.log.Timber
 
 /**
@@ -42,12 +42,7 @@ fun ConfigScreen(
 
     Column {
         // Title
-        Text(
-            text = stringResource(id = R.string.config_title),
-            style = MaterialTheme.typography.h4,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.padding(bottom = 30.dp)
-        )
+        PageTitle(stringRes = R.string.config_title)
 
         // Label
         Text(

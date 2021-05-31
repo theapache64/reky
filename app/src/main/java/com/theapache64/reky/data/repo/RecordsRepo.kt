@@ -1,5 +1,7 @@
 package com.theapache64.reky.data.repo
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.io.File
 import javax.inject.Inject
 
@@ -9,9 +11,7 @@ import javax.inject.Inject
 class RecordsRepo @Inject constructor(
 
 ) {
-    fun getRecords(): List<File> {
-        val records = mutableListOf<File>()
-
-        return records
+    suspend fun getRecords(recordsDir: String): List<File> = withContext(Dispatchers.IO) {
+        File(recordsDir).listFiles()?.toList()!!
     }
 }

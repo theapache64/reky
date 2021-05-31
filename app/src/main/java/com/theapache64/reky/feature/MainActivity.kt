@@ -25,7 +25,7 @@ import com.theapache64.reky.feature.config.ConfigScreen
 import com.theapache64.reky.feature.splash.SplashScreen
 import com.theapache64.reky.feature.users.UsersScreen
 import com.theapache64.reky.ui.theme.RekyTheme
-import com.theapache64.reky.util.getAbsolutePath
+import com.theapache64.reky.test.getAbsolutePath
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity() {
                                 val dirPickIntent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE).apply {
                                     addCategory(Intent.CATEGORY_DEFAULT)
                                 }
-                                dirPickLauncher.launch(dirPickIntent)
+                                dirPickLauncher.launch(Intent.createChooser(dirPickIntent, "Choose Directory"))
                             },
                             onConfigFinished = {
                                 goToUsers(navController)

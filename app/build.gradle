@@ -62,6 +62,15 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.3'
+
+    // Mockito
+    testImplementation 'org.mockito:mockito-core:3.7.7'
+    testImplementation 'org.mockito:mockito-inline:3.7.7'
+    testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0'
+
+    // Expekt : An assertion library for Kotlin
+    testImplementation 'com.github.theapache64:expekt:1.0.0'
 
     // Hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
@@ -76,9 +85,10 @@ dependencies {
     // Dexter : Dexter is an Android library to handle runtime permissions for Marshmallow easily
     implementation 'com.karumi:dexter:6.2.2'
 
-    // Assent Core : Assent Core
-    implementation 'com.afollestad.assent:core:3.0.0-RC4'
-
     // DataStore : Preference
     implementation 'androidx.datastore:datastore-preferences:1.0.0-beta01'
+
+    // Kotlinx Coroutines Core : Coroutines support libraries for Kotlin
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0'
+
 }
