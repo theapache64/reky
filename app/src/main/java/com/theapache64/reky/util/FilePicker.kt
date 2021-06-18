@@ -1,4 +1,4 @@
-package com.theapache64.reky.test
+package com.theapache64.reky.util
 
 import android.content.ContentUris
 import android.content.Context

@@ -48,7 +48,7 @@ class UsersViewModelTest {
         val viewModel = UsersViewModel(fakeRecordsRepo, fakeContactsRepo, fakeConfigRepo)
         val users = viewModel.users.first()
         val totalRecordsAvailable = fakeRecordsRepo.getRecords("").size
-        val totalRecordCollected = users.sumBy { it.recordCount }
+        val totalRecordCollected = users.sumBy { it.recordCount ?: 0 }
         totalRecordsAvailable.should.equal(totalRecordCollected)
     }
 }

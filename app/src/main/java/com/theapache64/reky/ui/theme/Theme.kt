@@ -11,15 +11,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
+val Shark = Color(0xff1D1F21)
+val OuterSpace = Color(0xff222526)
+
 
 private val DarkColorPalette = darkColors(
-    primary = BigStone,
+    primary = Shark,
     onPrimary = Color.White,
-    secondary = BigStone,
+    secondary = Shark,
     onSecondary = Color.White,
-    surface = BigStone,
+    surface = Shark,
     onSurface = Color.White,
-    background = BigStone,
+    background = Shark,
     onBackground = Color.White
 )
 

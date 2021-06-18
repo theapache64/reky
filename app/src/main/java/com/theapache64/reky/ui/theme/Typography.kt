@@ -40,7 +40,7 @@ val Typography = Typography(
     ),
     h6 = TextStyle(
         fontSize = 20.sp,
-        fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight.Medium,
     ),
     subtitle1 = TextStyle(
         fontSize = 16.sp,

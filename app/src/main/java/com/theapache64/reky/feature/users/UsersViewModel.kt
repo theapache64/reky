@@ -30,7 +30,6 @@ class UsersViewModel @Inject constructor(
 
         viewModelScope.launch {
 
-
             val recordsDir = configRepo.getConfig()!!.recordsDir
             val records = recordsRepo.getRecords(recordsDir)
             Timber.d("Records: ${records.size} ")

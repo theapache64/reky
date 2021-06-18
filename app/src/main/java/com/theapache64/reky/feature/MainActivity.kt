@@ -25,7 +25,7 @@ import com.theapache64.reky.feature.config.ConfigScreen
 import com.theapache64.reky.feature.splash.SplashScreen
 import com.theapache64.reky.feature.users.UsersScreen
 import com.theapache64.reky.ui.theme.RekyTheme
-import com.theapache64.reky.test.getAbsolutePath
+import com.theapache64.reky.util.getAbsolutePath
 import dagger.hilt.android.AndroidEntryPoint
 
 
