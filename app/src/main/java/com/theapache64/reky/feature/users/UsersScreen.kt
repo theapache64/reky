@@ -18,6 +18,7 @@ import com.theapache64.reky.R
 import com.theapache64.reky.data.local.model.User
 import com.theapache64.reky.ui.composable.PageTitle
 import com.theapache64.reky.ui.theme.OuterSpace
+import timber.log.Timber
 
 /**
  * Created by theapache64 : May 29 Sat,2021 @ 17:05
@@ -38,6 +39,7 @@ fun UsersScreen(
 
 @Composable
 private fun Users(users: List<User>, onUserClicked: (User) -> Unit) {
+    Timber.d("Users: $users");
     LazyColumn() {
         for (user in users) {
             item {

@@ -11,6 +11,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -80,7 +81,12 @@ class MainActivity : AppCompatActivity() {
                                 val dirPickIntent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE).apply {
                                     addCategory(Intent.CATEGORY_DEFAULT)
                                 }
-                                dirPickLauncher.launch(Intent.createChooser(dirPickIntent, "Choose Directory"))
+                                dirPickLauncher.launch(
+                                    Intent.createChooser(
+                                        dirPickIntent,
+                                        "Choose Directory"
+                                    )
+                                )
                             },
                             onConfigFinished = {
                                 goToUsers(navController)
@@ -92,9 +98,21 @@ class MainActivity : AppCompatActivity() {
                     composable("users") {
                         UsersScreen(
                             onUserClicked = {
-
+                                val (_, name, number) = it.contact
+                                navController.navigate("user/$name/$number")
                             }
                         )
+                    }
+
+                    // User
+                    composable("user/{userName}/{userMobile}") { entry ->
+                        val userName = entry.arguments?.getString("userName")
+                        val userMobile = entry.arguments?.getString("userMobile")
+                        UsersScreen(
+                            viewModel = hiltViewModel(backStackEntry = entry)
+                        ) {
+
+                        }
                     }
                 }
             }
