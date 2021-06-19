@@ -1,15 +1,19 @@
 package com.theapache64.reky.data.local.model
 
 import com.theapache64.reky.ui.composable.ListItem
+import java.io.File
 
 data class Recording(
-    val filePath: String
+    val duration: String,
+    val recordedAt: String,
+    val file: File
 ) : ListItem {
+
     override fun getCircleText(): String {
-        TODO("Not yet implemented")
+        return duration
     }
 
     override fun getMainText(): String {
-        TODO("Not yet implemented")
+        return recordedAt
     }
 }
