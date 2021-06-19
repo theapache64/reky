@@ -5,11 +5,11 @@ package com.theapache64.reky.util
  */
 sealed class Resource<T> {
 
+    class Idle<T> : Resource<T>()
     class Loading<T> : Resource<T>()
-
     data class Success<T>(
-        val message: String?,
-        val data: T
+        val data: T,
+        val message: String? = null,
     ) : Resource<T>()
 
     data class Error<T>(

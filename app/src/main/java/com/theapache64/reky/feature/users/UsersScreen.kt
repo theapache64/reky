@@ -16,9 +16,10 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.theapache64.reky.R
 import com.theapache64.reky.data.local.model.User
+import com.theapache64.reky.ui.composable.ListItem
+import com.theapache64.reky.ui.composable.ListItems
 import com.theapache64.reky.ui.composable.PageTitle
 import com.theapache64.reky.ui.theme.OuterSpace
-import timber.log.Timber
 
 /**
  * Created by theapache64 : May 29 Sat,2021 @ 17:05
@@ -33,59 +34,6 @@ fun UsersScreen(
         PageTitle(stringRes = R.string.app_name)
 
         val users by viewModel.users.collectAsState()
-        Users(users, onUserClicked)
-    }
-}
-
-@Composable
-private fun Users(users: List<User>, onUserClicked: (User) -> Unit) {
-    Timber.d("Users: $users");
-    LazyColumn() {
-        for (user in users) {
-            item {
-                UserItem(
-                    user = user,
-                    onUserClicked = onUserClicked
-                )
-            }
-        }
-    }
-}
-
-@Composable
-private fun UserItem(
-    user: User,
-    onUserClicked: (User) -> Unit,
-    modifier: Modifier = Modifier
-) {
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .clickable {
-                onUserClicked(user)
-            }
-            .padding(10.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        // Circle
-        Box(
-            modifier = Modifier
-                .size(70.dp)
-                .background(OuterSpace, CircleShape),
-            contentAlignment = Alignment.Center
-        ) {
-            Text(
-                text = "${user.recordCount ?: 0}",
-                style = MaterialTheme.typography.h5
-            )
-        }
-
-        Spacer(modifier = Modifier.width(10.dp))
-
-        // Name
-        Text(
-            text = user.contact.name,
-            style = MaterialTheme.typography.h6,
-        )
+        ListItems(items = users, onItemClicked = onUserClicked)
     }
 }

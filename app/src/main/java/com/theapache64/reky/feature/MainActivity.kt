@@ -24,6 +24,8 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.theapache64.reky.R
 import com.theapache64.reky.feature.config.ConfigScreen
 import com.theapache64.reky.feature.splash.SplashScreen
+import com.theapache64.reky.feature.user.UserScreen
+import com.theapache64.reky.feature.user.UserViewModel
 import com.theapache64.reky.feature.users.UsersScreen
 import com.theapache64.reky.ui.theme.RekyTheme
 import com.theapache64.reky.util.getAbsolutePath
@@ -105,11 +107,9 @@ class MainActivity : AppCompatActivity() {
                     }
 
                     // User
-                    composable("user/{userName}/{userMobile}") { entry ->
-                        val userName = entry.arguments?.getString("userName")
-                        val userMobile = entry.arguments?.getString("userMobile")
-                        UsersScreen(
-                            viewModel = hiltViewModel(backStackEntry = entry)
+                    composable("user/{${UserViewModel.KEY_USER_NAME}}/{${UserViewModel.KEY_USER_MOBILE}}") { navBackStackEntry ->
+                        UserScreen(
+                            viewModel = hiltViewModel(backStackEntry = navBackStackEntry)
                         ) {
 
                         }

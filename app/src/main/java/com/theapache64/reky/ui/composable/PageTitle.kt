@@ -15,10 +15,15 @@ import androidx.compose.ui.unit.dp
  */
 @Composable
 fun PageTitle(
-    @StringRes stringRes : Int
-){
+    @StringRes stringRes: Int? = null,
+    string: String? = null
+) {
     Text(
-        text = stringResource(id = stringRes),
+        text = when {
+            stringRes != null -> stringResource(id = stringRes)
+            string != null -> string
+            else -> ""
+        },
         style = MaterialTheme.typography.h4,
         textAlign = TextAlign.Center,
         modifier = Modifier.padding(bottom = 30.dp)

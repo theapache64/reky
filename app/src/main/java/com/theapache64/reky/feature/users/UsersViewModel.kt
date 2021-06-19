@@ -104,8 +104,6 @@ class UsersViewModel @Inject constructor(
                         this.recordCount = recordCount
                     }
                 }
-                // then find records count
-                .toList()
 
             _users.value = users
         }
