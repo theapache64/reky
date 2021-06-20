@@ -4,9 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -22,8 +21,14 @@ interface ListItem {
 
 
 @Composable
-fun <T : ListItem> ListItems(items: List<T>, onItemClicked: (T) -> Unit) {
-    LazyColumn {
+fun <T : ListItem> ListItems(
+    scrollState: LazyListState,
+    items: List<T>,
+    onItemClicked: (T) -> Unit
+) {
+    LazyColumn(
+        state = scrollState
+    ) {
         for (item in items) {
             item {
                 ListItemView(

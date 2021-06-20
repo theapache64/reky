@@ -1,14 +1,12 @@
 package com.theapache64.reky.feature.user
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.theapache64.reky.R
 import com.theapache64.reky.data.local.model.Recording
 import com.theapache64.reky.ui.composable.ListItems
 import com.theapache64.reky.ui.composable.Loading
@@ -21,6 +19,7 @@ import com.theapache64.reky.util.Resource
 @Composable
 fun UserScreen(
     viewModel: UserViewModel = hiltViewModel(),
+    recordingScrollState : LazyListState,
     onRecordingClicked: (Recording) -> Unit
 ) {
 
@@ -44,6 +43,7 @@ fun UserScreen(
                 val items = (recordings as Resource.Success<List<Recording>>).data
                 ListItems(
                     items = items,
+                    scrollState = recordingScrollState,
                     onItemClicked = onRecordingClicked
                 )
             }

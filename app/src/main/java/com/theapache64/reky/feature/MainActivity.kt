@@ -9,6 +9,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -54,6 +55,10 @@ class MainActivity : AppCompatActivity() {
         setContent {
             val navController = rememberNavController()
             RekyTheme {
+
+                val usersScrollState = rememberLazyListState()
+                val recordingScrollState = rememberLazyListState()
+
                 NavHost(navController = navController, startDestination = "splash") {
                     // Splash Screen
                     composable("splash") {
@@ -102,14 +107,16 @@ class MainActivity : AppCompatActivity() {
                             onUserClicked = {
                                 val (_, name, number) = it.contact
                                 navController.navigate("user/$name/$number")
-                            }
+                            },
+                            usersScrollState = usersScrollState
                         )
                     }
 
                     // User
                     composable("user/{${UserViewModel.KEY_USER_NAME}}/{${UserViewModel.KEY_USER_MOBILE}}") { navBackStackEntry ->
                         UserScreen(
-                            viewModel = hiltViewModel(backStackEntry = navBackStackEntry)
+                            viewModel = hiltViewModel(backStackEntry = navBackStackEntry),
+                            recordingScrollState = recordingScrollState
                         ) {
 
                         }
