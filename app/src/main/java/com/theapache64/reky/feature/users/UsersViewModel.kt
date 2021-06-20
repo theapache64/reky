@@ -35,15 +35,6 @@ class UsersViewModel @Inject constructor(
             Timber.d("Records: ${records.size} ")
             val allContacts = contactsRepo.getContacts()
             val users = records
-                // Sort by timestamp first
-                .asSequence()
-                .sortedBy {
-                    val lastHyphenIndex = it.name.lastIndexOf('-')
-                    val lastDotIndex = it.name.lastIndexOf('.')
-                    it.name.substring(lastHyphenIndex, lastDotIndex).also {
-                        Timber.d("Timestamp: $it")
-                    }.toLong()
-                }
                 // then get name/number
                 .map {
                     val lastHyphenIndex = it.name.lastIndexOf('-')

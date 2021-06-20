@@ -6,6 +6,7 @@ import android.net.Uri
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 import java.io.File
 import javax.inject.Inject
 
@@ -16,7 +17,11 @@ class RecordsRepo @Inject constructor(
     @ApplicationContext val context: Context
 ) {
     suspend fun getRecords(recordsDir: String): List<File> = withContext(Dispatchers.IO) {
-        File(recordsDir).listFiles()?.toList()!!
+        File(recordsDir).listFiles()!!.sortedBy {
+            val lastHyphenIndex = it.name.lastIndexOf('-')
+            val lastDotIndex = it.name.lastIndexOf('.')
+            it.name.substring(lastHyphenIndex, lastDotIndex).toLong()
+        }
     }
 
 

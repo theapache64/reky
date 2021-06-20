@@ -7,10 +7,13 @@ import com.theapache64.reky.data.local.model.Recording
 import com.theapache64.reky.data.repo.ConfigRepo
 import com.theapache64.reky.data.repo.RecordsRepo
 import com.theapache64.reky.util.Resource
+import com.theapache64.reky.util.TimeUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -47,18 +50,24 @@ class UserViewModel @Inject constructor(
                 .map { file ->
                     val duration = millisToDuration(recordsRepo.getDurationInMillis(file))
                     val recordedAt = parseRecordedAt(file.name)
-                    Recording(duration = duration, recordedAt = "", file = file)
+                    Recording(duration = duration, recordedAt = recordedAt, file = file)
                 }
 
             _recordings.value = Resource.Success(recordings)
         }
     }
 
-    private fun parseRecordedAt(name: String): String {
-        TODO("Not yet implemented")
+    private val inputDateTimeFormat = SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault())
+
+    private fun parseRecordedAt(fileName: String): String {
+        val timestamp = fileName.split("-")[1].split(".")[0]
+        val recordedAt = inputDateTimeFormat.parse(timestamp)?.time ?: 0
+        return TimeUtils.getTimeAgo(recordedAt)!!
     }
 
+
     private fun millisToDuration(durationInMillis: Long): String {
-        TODO("Not yet implemented")
+        // 911171279953-20210425194141
+        return "Y"
     }
 }

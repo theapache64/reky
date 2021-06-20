@@ -10,8 +10,7 @@ import com.theapache64.reky.data.repo.ContactsRepo
 import com.theapache64.reky.data.repo.RecordsRepo
 import com.theapache64.reky.fakeContacts
 import com.theapache64.reky.fakeRecords
-import com.theapache64.reky.test.MainCoroutineRule
-import com.theapache64.reky.test.runBlockingUnitTest
+import com.theapache64.reky.test.*
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.Rule
@@ -25,23 +24,6 @@ class UsersViewModelTest {
     @get:Rule
     val coroutineRule = MainCoroutineRule()
 
-    private val fakeContactsRepo = mock<ContactsRepo>().apply {
-        runBlocking {
-            whenever(getContacts()).thenReturn(fakeContacts)
-        }
-    }
-
-    private val fakeRecordsRepo = mock<RecordsRepo>().apply {
-        runBlocking {
-            whenever(getRecords(any())).thenReturn(fakeRecords)
-        }
-    }
-
-    private val fakeConfigRepo = mock<ConfigRepo>().apply {
-        runBlocking {
-            whenever(getConfig()).thenReturn(Config("/some/dir/"))
-        }
-    }
 
     @Test
     fun `Returns correct data`() = runBlockingUnitTest {
