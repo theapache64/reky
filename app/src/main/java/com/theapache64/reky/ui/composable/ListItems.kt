@@ -33,7 +33,7 @@ fun <T : ListItem> ListItems(
             item {
                 ListItemView(
                     item = item,
-                    onUserClicked = onItemClicked
+                    onItemClicked = onItemClicked
                 )
             }
         }
@@ -43,14 +43,14 @@ fun <T : ListItem> ListItems(
 @Composable
 private fun <T : ListItem> ListItemView(
     item: T,
-    onUserClicked: (T) -> Unit,
+    onItemClicked: (T) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
             .clickable {
-                onUserClicked(item)
+                onItemClicked(item)
             }
             .padding(10.dp),
         verticalAlignment = Alignment.CenterVertically

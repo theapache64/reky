@@ -2,6 +2,7 @@ package com.theapache64.reky.feature
 
 import android.Manifest
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.provider.DocumentsContract
 import android.widget.Toast
@@ -116,10 +117,14 @@ class MainActivity : AppCompatActivity() {
                     composable("user/{${UserViewModel.KEY_USER_NAME}}/{${UserViewModel.KEY_USER_MOBILE}}") { navBackStackEntry ->
                         UserScreen(
                             viewModel = hiltViewModel(backStackEntry = navBackStackEntry),
-                            recordingScrollState = recordingScrollState
-                        ) {
-
-                        }
+                            recordingScrollState = recordingScrollState,
+                            onRecordingClicked = {
+                                val targetIntent = Intent(Intent.ACTION_VIEW).apply {
+                                    setDataAndType(Uri.parse(it.file.absolutePath), "audio/*")
+                                }
+                                startActivity(Intent.createChooser(targetIntent, "Play with"))
+                            }
+                        )
                     }
                 }
             }
