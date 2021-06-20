@@ -67,7 +67,17 @@ class UserViewModel @Inject constructor(
 
 
     private fun millisToDuration(durationInMillis: Long): String {
-        // 911171279953-20210425194141
-        return "Y"
+        return when (val seconds = durationInMillis / 1000) {
+            in 0..60 -> "${seconds}s"
+            in 61..3600 -> {
+                val minute = (seconds / 60)
+                "${minute}m"
+            }
+            in 3601..86400 -> {
+                val hour = ((seconds / 60) / 60)
+                "${hour}h"
+            }
+            else -> "-"
+        }
     }
 }
