@@ -16,7 +16,7 @@ val OuterSpace = Color(0xff222526)
 
 
 private val DarkColorPalette = darkColors(
-    primary = Shark,
+    primary = Color.White,
     onPrimary = Color.White,
     secondary = Shark,
     onSecondary = Color.White,

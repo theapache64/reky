@@ -7,6 +7,7 @@ import com.theapache64.reky.data.local.model.User
 import com.theapache64.reky.data.repo.ConfigRepo
 import com.theapache64.reky.data.repo.ContactsRepo
 import com.theapache64.reky.data.repo.RecordsRepo
+import com.theapache64.reky.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -23,12 +24,14 @@ class UsersViewModel @Inject constructor(
     private val contactsRepo: ContactsRepo,
     private val configRepo: ConfigRepo
 ) : ViewModel() {
-    private val _users = MutableStateFlow<List<User>>(listOf())
+    private val _users = MutableStateFlow<Resource<List<User>>>(Resource.Idle())
     val users = _users.asStateFlow()
 
     init {
 
         viewModelScope.launch {
+
+            _users.value = Resource.Loading()
 
             val recordsDir = configRepo.getConfig()!!.recordsDir
             val records = recordsRepo.getRecords(recordsDir)
@@ -96,7 +99,7 @@ class UsersViewModel @Inject constructor(
                     }
                 }
 
-            _users.value = users
+            _users.value = Resource.Success(users)
         }
     }
 }
