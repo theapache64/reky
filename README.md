@@ -7,6 +7,8 @@
 <img alt="Twitter: theapache64" src="https://img.shields.io/twitter/follow/theapache64.svg?style=social" />
 </a>
 
+![](montage.png)
+
 > A simple android app to browse your phone call recordings [Under Construction]
 
 ## 📲 Supported Devices
