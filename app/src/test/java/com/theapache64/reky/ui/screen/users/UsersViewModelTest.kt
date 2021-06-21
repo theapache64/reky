@@ -1,20 +1,10 @@
-package com.theapache64.reky.feature.users
+package com.theapache64.reky.ui.screen.users
 
 import com.github.theapache64.expekt.should
-import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.whenever
-import com.theapache64.reky.data.local.model.Config
 import com.theapache64.reky.data.local.model.User
-import com.theapache64.reky.data.repo.ConfigRepo
-import com.theapache64.reky.data.repo.ContactsRepo
-import com.theapache64.reky.data.repo.RecordsRepo
-import com.theapache64.reky.fakeContacts
-import com.theapache64.reky.fakeRecords
 import com.theapache64.reky.test.*
 import com.theapache64.reky.util.Resource
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.runBlocking
 import org.junit.Rule
 import org.junit.Test
 

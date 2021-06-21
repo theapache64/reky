@@ -1,4 +1,4 @@
-package com.theapache64.reky.feature
+package com.theapache64.reky.ui.screen
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

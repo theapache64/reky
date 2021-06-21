@@ -1,8 +1,7 @@
-package com.theapache64.reky.feature.user
+package com.theapache64.reky.ui.screen.user
 
 import androidx.lifecycle.SavedStateHandle
 import com.github.theapache64.expekt.should
-import com.theapache64.reky.data.local.model.Recording
 import com.theapache64.reky.fakeContactNameVenom
 import com.theapache64.reky.fakeContactNumberVenom
 import com.theapache64.reky.test.MainCoroutineRule

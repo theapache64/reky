@@ -1,4 +1,4 @@
-package com.theapache64.reky.feature.users
+package com.theapache64.reky.ui.screen.users
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

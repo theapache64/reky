@@ -1,4 +1,4 @@
-package com.theapache64.reky.feature.config
+package com.theapache64.reky.ui.screen.config
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column

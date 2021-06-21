@@ -1,4 +1,4 @@
-package com.theapache64.reky.feature
+package com.theapache64.reky.ui.screen
 
 import android.Manifest
 import android.content.Intent
@@ -24,11 +24,11 @@ import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.theapache64.reky.R
-import com.theapache64.reky.feature.config.ConfigScreen
-import com.theapache64.reky.feature.splash.SplashScreen
-import com.theapache64.reky.feature.user.UserScreen
-import com.theapache64.reky.feature.user.UserViewModel
-import com.theapache64.reky.feature.users.UsersScreen
+import com.theapache64.reky.ui.screen.config.ConfigScreen
+import com.theapache64.reky.ui.screen.splash.SplashScreen
+import com.theapache64.reky.ui.screen.user.UserScreen
+import com.theapache64.reky.ui.screen.user.UserViewModel
+import com.theapache64.reky.ui.screen.users.UsersScreen
 import com.theapache64.reky.ui.theme.RekyTheme
 import com.theapache64.reky.util.getAbsolutePath
 import dagger.hilt.android.AndroidEntryPoint

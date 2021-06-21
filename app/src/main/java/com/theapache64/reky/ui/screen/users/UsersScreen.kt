@@ -1,11 +1,10 @@
-package com.theapache64.reky.feature.users
+package com.theapache64.reky.ui.screen.users
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.datastore.preferences.protobuf.LazyStringList
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.theapache64.reky.R
 import com.theapache64.reky.data.local.model.User

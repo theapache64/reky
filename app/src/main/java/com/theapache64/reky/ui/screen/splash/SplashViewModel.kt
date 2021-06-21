@@ -1,4 +1,4 @@
-package com.theapache64.reky.feature.splash
+package com.theapache64.reky.ui.screen.splash
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

@@ -1,4 +1,4 @@
-package com.theapache64.reky.feature.config
+package com.theapache64.reky.ui.screen.config
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

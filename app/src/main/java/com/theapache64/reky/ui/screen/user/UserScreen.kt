@@ -1,4 +1,4 @@
-package com.theapache64.reky.feature.user
+package com.theapache64.reky.ui.screen.user
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.lazy.LazyListState

@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Reky">
         <activity
-            android:name=".feature.MainActivity"
+            android:name="com.theapache64.reky.ui.screen.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.Reky.NoActionBar">

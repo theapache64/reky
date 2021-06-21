@@ -1,4 +1,4 @@
-package com.theapache64.reky.feature.splash
+package com.theapache64.reky.ui.screen.splash
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box

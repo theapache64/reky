@@ -1,4 +1,4 @@
-package com.theapache64.reky.feature.user
+package com.theapache64.reky.ui.screen.user
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
