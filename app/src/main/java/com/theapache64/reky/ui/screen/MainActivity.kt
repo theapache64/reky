@@ -36,6 +36,12 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+    companion object {
+        private const val SCREEN_SPLASH = "splash"
+        private const val SCREEN_CONFIG = "config"
+        private const val SCREEN_USERS = "users"
+        private const val SCREEN_USER = "user"
+    }
 
     private val viewModel by viewModels<MainViewModel>()
 
@@ -60,9 +66,9 @@ class MainActivity : AppCompatActivity() {
                 val usersScrollState = rememberLazyListState()
                 val recordingScrollState = rememberLazyListState()
 
-                NavHost(navController = navController, startDestination = "splash") {
+                NavHost(navController = navController, startDestination = SCREEN_SPLASH) {
                     // Splash Screen
-                    composable("splash") {
+                    composable(SCREEN_SPLASH) {
                         SplashScreen(
                             onSplashFinished = { isConfigSet ->
                                 checkPermissionsOrFinish {
@@ -79,7 +85,7 @@ class MainActivity : AppCompatActivity() {
                         )
                     }
 
-                    composable("config") {
+                    composable(SCREEN_CONFIG) {
 
                         val recordsDir by viewModel.pickedDirectory.collectAsState()
 
@@ -103,18 +109,18 @@ class MainActivity : AppCompatActivity() {
                     }
 
                     // Users
-                    composable("users") {
+                    composable(SCREEN_USERS) {
                         UsersScreen(
                             onUserClicked = {
                                 val (_, name, number) = it.contact
-                                navController.navigate("user/$name/$number")
+                                navController.navigate("$SCREEN_USER/$name/$number")
                             },
                             usersScrollState = usersScrollState
                         )
                     }
 
                     // User
-                    composable("user/{${UserViewModel.KEY_USER_NAME}}/{${UserViewModel.KEY_USER_MOBILE}}") { navBackStackEntry ->
+                    composable("$SCREEN_USER/{${UserViewModel.KEY_USER_NAME}}/{${UserViewModel.KEY_USER_MOBILE}}") { navBackStackEntry ->
                         UserScreen(
                             viewModel = hiltViewModel(backStackEntry = navBackStackEntry),
                             recordingScrollState = recordingScrollState,
