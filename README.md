@@ -7,7 +7,7 @@
 <img alt="Twitter: theapache64" src="https://img.shields.io/twitter/follow/theapache64.svg?style=social" />
 </a>
 
-> A simple android app to browse your phone call recordings
+> A simple android app to browse your phone call recordings [Under Construction]
 
 ## 📲 Supported Devices
 
@@ -19,13 +19,10 @@
 
 ## 🏗 Built-with
 
-- Compose
-- Kotlin
-- Coroutines
-- MVVM with Single Activity, Zero Fragment, and Only Compose 😝
-- Hilt
+- MVVM with Single Activity and Compose (No Fragments) 😝 
 - Navigation
-- Dexter
+- Coroutines
+- Hilt
 - DataStore
 - Timber
 
