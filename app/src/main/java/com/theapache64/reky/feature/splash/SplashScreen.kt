@@ -36,7 +36,10 @@ fun SplashScreen(
     ) {
 
         // Logo
-        Image(painter = painterResource(id = R.drawable.ic_logo), contentDescription = "Logo")
+        Image(
+            painter = painterResource(id = R.drawable.ic_launcher_foreground),
+            contentDescription = "Logo"
+        )
 
         // Version
         Text(

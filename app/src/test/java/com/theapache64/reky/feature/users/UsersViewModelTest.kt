@@ -5,12 +5,14 @@ import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import com.theapache64.reky.data.local.model.Config
+import com.theapache64.reky.data.local.model.User
 import com.theapache64.reky.data.repo.ConfigRepo
 import com.theapache64.reky.data.repo.ContactsRepo
 import com.theapache64.reky.data.repo.RecordsRepo
 import com.theapache64.reky.fakeContacts
 import com.theapache64.reky.fakeRecords
 import com.theapache64.reky.test.*
+import com.theapache64.reky.util.Resource
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.Rule
@@ -28,7 +30,7 @@ class UsersViewModelTest {
     @Test
     fun `Returns correct data`() = runBlockingUnitTest {
         val viewModel = UsersViewModel(fakeRecordsRepo, fakeContactsRepo, fakeConfigRepo)
-        val users = viewModel.users.first()
+        val users = (viewModel.users.first() as Resource.Success<List<User>>).data
         val totalRecordsAvailable = fakeRecordsRepo.getRecords("").size
         val totalRecordCollected = users.sumBy { it.recordCount ?: 0 }
         totalRecordsAvailable.should.equal(totalRecordCollected)

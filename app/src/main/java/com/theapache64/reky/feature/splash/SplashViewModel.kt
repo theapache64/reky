@@ -21,7 +21,7 @@ class SplashViewModel @Inject constructor(
 
     companion object {
         private val SPLASH_DELAY = if (BuildConfig.DEBUG) {
-            0
+            1500L
         } else {
             2000L
         }
