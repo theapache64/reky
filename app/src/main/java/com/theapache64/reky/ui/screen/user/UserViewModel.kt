@@ -3,6 +3,7 @@ package com.theapache64.reky.ui.screen.user
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.theapache64.reky.data.local.model.FileNameFormat
 import com.theapache64.reky.data.local.model.Recording
 import com.theapache64.reky.data.repo.ConfigRepo
 import com.theapache64.reky.data.repo.RecordsRepo
@@ -44,12 +45,18 @@ class UserViewModel @Inject constructor(
         viewModelScope.launch {
             _recordings.value = Resource.Loading()
 
+            val fileNameFormat = configRepo.getFileNameFormat()!!
+            val inputDateTimeFormat =
+                SimpleDateFormat(fileNameFormat.dateTimeFormat, Locale.getDefault())
             val recordings: List<Recording> = recordsRepo
-                .getRecords(configRepo.getConfig()!!.recordsDir)
+                .getRecords(
+                    fileNameFormat = configRepo.getFileNameFormat()!!,
+                    recordsDir = configRepo.getConfig()!!.recordsDir
+                )
                 .filter { it.name.contains(userName) || it.name.contains(userMobile) }
                 .map { file ->
                     val duration = millisToDuration(recordsRepo.getDurationInMillis(file))
-                    val recordedAt = parseRecordedAt(file.name)
+                    val recordedAt = parseRecordedAt(inputDateTimeFormat, fileNameFormat, file.name)
                     Recording(duration = duration, recordedAt = recordedAt, file = file)
                 }
 
@@ -57,11 +64,15 @@ class UserViewModel @Inject constructor(
         }
     }
 
-    private val inputDateTimeFormat = SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault())
 
-    private fun parseRecordedAt(fileName: String): String {
-        val timestamp = fileName.split("-")[1].split(".")[0]
-        val recordedAt = inputDateTimeFormat.parse(timestamp)?.time ?: 0
+    private fun parseRecordedAt(
+        inputDateTimeFormat: SimpleDateFormat,
+        fileNameFormat: FileNameFormat,
+        fileName: String
+    ): String {
+        val data = fileNameFormat.parse(fileName)!!
+        val timestamp = data.dateTime
+        val recordedAt = inputDateTimeFormat.parse(timestamp.toString())?.time ?: 0
         return TimeUtils.getTimeAgo(recordedAt)!!
     }
 

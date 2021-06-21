@@ -3,6 +3,7 @@ package com.theapache64.reky.data.repo
 import android.content.Context
 import android.media.MediaMetadataRetriever
 import android.net.Uri
+import com.theapache64.reky.data.local.model.FileNameFormat
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -16,13 +17,26 @@ import javax.inject.Inject
 class RecordsRepo @Inject constructor(
     @ApplicationContext val context: Context
 ) {
-    suspend fun getRecords(recordsDir: String): List<File> = withContext(Dispatchers.IO) {
-        File(recordsDir).listFiles()!!.sortedBy {
-            val lastHyphenIndex = it.name.lastIndexOf('-')
-            val lastDotIndex = it.name.lastIndexOf('.')
-            it.name.substring(lastHyphenIndex, lastDotIndex).toLong()
+
+    companion object {
+        private val fileNameFormats by lazy {
+            listOf(
+                // OnePlus6
+                FileNameFormat(
+                    regEx = "^(?<name>.+?)-(?<dateTime>\\d+).\\w+\$".toRegex(),
+                    dateTimeFormat = "yyyyMMddHHmmss"
+                ),
+                // TODO: Add more file formats to support more device
+            )
         }
     }
+
+    suspend fun getRecords(fileNameFormat: FileNameFormat, recordsDir: String): List<File> =
+        withContext(Dispatchers.IO) {
+            File(recordsDir).listFiles()!!.sortedByDescending {
+                fileNameFormat.parse(it.name)!!.dateTime
+            }
+        }
 
 
     suspend fun getDurationInMillis(audioFile: File): Long = withContext(Dispatchers.IO) {
@@ -32,4 +46,24 @@ class RecordsRepo @Inject constructor(
         val durationStr = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
         durationStr?.toLong() ?: -1
     }
+
+    suspend fun findFileNameFormat(recordsDir: String): FileNameFormat? =
+        withContext(Dispatchers.IO) {
+            val allFileNames = File(recordsDir).listFiles()!!.map { it.name }
+            var format: FileNameFormat? = null
+            for (fileName in allFileNames) {
+                for (fileNameFormat in fileNameFormats) {
+                    if (fileName.matches(fileNameFormat.regEx)) {
+                        format = fileNameFormat
+                        break
+                    }
+                }
+
+                if (format != null) {
+                    break
+                }
+            }
+            Timber.d("Format is: $format");
+            format
+        }
 }

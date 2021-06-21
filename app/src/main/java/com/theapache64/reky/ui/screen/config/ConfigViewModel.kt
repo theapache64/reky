@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.theapache64.reky.R
 import com.theapache64.reky.data.repo.ConfigRepo
+import com.theapache64.reky.data.repo.RecordsRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,7 +16,8 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class ConfigViewModel @Inject constructor(
-    private val configRepo: ConfigRepo
+    private val configRepo: ConfigRepo,
+    private val recordsRepo: RecordsRepo
 ) : ViewModel() {
 
     lateinit var recordsDir: String
@@ -35,8 +37,19 @@ class ConfigViewModel @Inject constructor(
                 // Save config
                 configRepo.saveRecordsPath(recordsDir)
 
-                _validationError.value = null
-                _isConfigFinished.value = true
+                // Identify file name format
+                val fileNameFormat = recordsRepo.findFileNameFormat(recordsDir)
+
+                if (fileNameFormat != null) {
+
+                    // Save file name format
+                    configRepo.saveFileNameFormat(fileNameFormat)
+
+                    _validationError.value = null
+                    _isConfigFinished.value = true
+                } else {
+                    _validationError.value = R.string.config_error_file_format
+                }
             }
         }
     }

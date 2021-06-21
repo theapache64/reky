@@ -34,7 +34,10 @@ class UsersViewModel @Inject constructor(
             _users.value = Resource.Loading()
 
             val recordsDir = configRepo.getConfig()!!.recordsDir
-            val records = recordsRepo.getRecords(recordsDir)
+            val records = recordsRepo.getRecords(
+                recordsDir = recordsDir,
+                fileNameFormat = configRepo.getFileNameFormat()!!
+            )
             Timber.d("Records: ${records.size} ")
             val allContacts = contactsRepo.getContacts()
             val users = records
@@ -98,6 +101,7 @@ class UsersViewModel @Inject constructor(
                         this.recordCount = recordCount
                     }
                 }
+                .toList()
 
             _users.value = Resource.Success(users)
         }

@@ -5,4 +5,5 @@
     <string name="config_title">Setup Reky</string>
     <string name="config_action_finish">FINISH</string>
     <string name="config_error_empty_dir">Please set the recordings directory</string>
+    <string name="config_error_file_format">Couldn\'t find actual file format. Please report</string>
 </resources>
