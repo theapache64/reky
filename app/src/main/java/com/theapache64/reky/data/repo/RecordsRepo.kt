@@ -25,11 +25,11 @@ class RecordsRepo @Inject constructor(
     }
 
 
-    fun getDurationInMillis(audioFile: File): Long {
+    suspend fun getDurationInMillis(audioFile: File): Long = withContext(Dispatchers.IO) {
         val uri = Uri.parse(audioFile.absolutePath)
         val mmr = MediaMetadataRetriever()
         mmr.setDataSource(context, uri)
         val durationStr = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
-        return durationStr?.toLong() ?: -1
+        durationStr?.toLong() ?: -1
     }
 }
