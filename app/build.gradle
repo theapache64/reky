@@ -13,8 +13,8 @@ android {
         applicationId "com.theapache64.reky"
         minSdk 21
         targetSdk 30
-        versionCode 100
-        versionName "1.0.0"
+        versionCode 10001
+        versionName "1.0.0-alpha01"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {

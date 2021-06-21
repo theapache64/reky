@@ -9,13 +9,25 @@
 
 > A simple android app to browse your phone call recordings
 
-## Supported Devices
+## 📲 Supported Devices
 
 - OnePlus6
 
-## TODO
+## ✅ TODO
 
 - [ ] Support more devices
+
+## 🏗 Built-with
+
+- Compose
+- Kotlin
+- Coroutines
+- MVVM with Single Activity, Zero Fragment, and Only Compose 😝
+- Hilt
+- Navigation
+- Dexter
+- DataStore
+- Timber
 
 ## ✍️ Author
 
@@ -28,8 +40,8 @@ Feel free to ping me 😉
 
 ## 🤝 Contributing
 
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any
-contributions you make are **greatly appreciated**.
+Contributions are what make the open source community such an amazing place to be learn, inspire,
+and create. Any contributions you make are **greatly appreciated**.
 
 1. Open an issue first to discuss what you would like to change.
 1. Fork the Project
@@ -51,7 +63,6 @@ Give a ⭐️ if this project helped you!
 <a href="https://www.buymeacoffee.com/theapache64" target="_blank">
     <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" width="160">
 </a>
-
 
 ## 📝 License
 
