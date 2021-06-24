@@ -10,11 +10,19 @@ data class User(
     var recordCount: Int? = 1
 ) : ListItem {
 
+    companion object {
+        private val BEAUTIFY_REGEX = "([a-z])([A-Z])".toRegex()
+        private fun beautify(name: String): String {
+            return name.replace(regex = BEAUTIFY_REGEX, "$1 $2")
+        }
+    }
+
     override fun getCircleText(): String {
         return (recordCount ?: 0).toString()
     }
 
     override fun getMainText(): String {
-        return contact.name
+        return beautify(contact.name)
     }
+
 }
