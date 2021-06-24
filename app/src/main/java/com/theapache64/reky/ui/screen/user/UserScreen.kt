@@ -19,7 +19,7 @@ import com.theapache64.reky.util.Resource
 @Composable
 fun UserScreen(
     viewModel: UserViewModel = hiltViewModel(),
-    recordingScrollState : LazyListState,
+    recordingScrollState: LazyListState,
     onRecordingClicked: (Recording) -> Unit
 ) {
 

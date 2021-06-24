@@ -24,8 +24,14 @@ class UsersViewModel @Inject constructor(
     private val contactsRepo: ContactsRepo,
     private val configRepo: ConfigRepo
 ) : ViewModel() {
+
     private val _users = MutableStateFlow<Resource<List<User>>>(Resource.Idle())
     val users = _users.asStateFlow()
+
+
+    private var fullUsers: List<User>? = null
+    private val _searchKeyword = MutableStateFlow("")
+    val searchKeyword = _searchKeyword.asStateFlow()
 
     init {
 
@@ -103,8 +109,32 @@ class UsersViewModel @Inject constructor(
                 }
                 .toList()
 
+            fullUsers = users.toList()
             _users.value = Resource.Success(users)
         }
+    }
+
+
+    fun onSearchKeywordChanged(newSearchKeyword: String) {
+        _searchKeyword.value = newSearchKeyword
+
+        val resp = _users.value
+        fullUsers?.let { fullUsers ->
+            if (resp is Resource.Success) {
+                val filtered = if (newSearchKeyword.isNotBlank()) {
+                    // show filtered
+                    fullUsers.filter {
+                        it.getMainText().contains(newSearchKeyword, ignoreCase = true)
+                    }
+                } else {
+                    // show full
+                    fullUsers
+                }
+
+                _users.value = Resource.Success(filtered)
+            }
+        }
+
     }
 }
 
