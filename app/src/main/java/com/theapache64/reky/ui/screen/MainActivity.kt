@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.core.text.isDigitsOnly
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -114,6 +115,14 @@ class MainActivity : AppCompatActivity() {
                             onUserClicked = {
                                 val (_, name, number) = it.contact
                                 navController.navigate("$SCREEN_USER/$name/$number")
+                            },
+                            onUserLongClicked = {
+                                if (it.contact.name.isDigitsOnly()) {
+                                    val intent = Intent(Intent.ACTION_DIAL).apply {
+                                        data = Uri.parse("tel:${it.contact.name}")
+                                    }
+                                    startActivity(intent)
+                                }
                             },
                             usersScrollState = usersScrollState
                         )

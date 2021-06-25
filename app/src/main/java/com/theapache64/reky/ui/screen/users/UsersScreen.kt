@@ -27,7 +27,8 @@ import com.theapache64.reky.util.Resource
 fun UsersScreen(
     viewModel: UsersViewModel = hiltViewModel(),
     usersScrollState: LazyListState,
-    onUserClicked: (User) -> Unit
+    onUserClicked: (User) -> Unit,
+    onUserLongClicked: (User) -> Unit,
 ) {
     Column {
         // Title
@@ -60,7 +61,8 @@ fun UsersScreen(
                 ListItems(
                     items = users,
                     onItemClicked = onUserClicked,
-                    scrollState = usersScrollState
+                    scrollState = usersScrollState,
+                    onItemLongClicked = onUserLongClicked
                 )
             }
             is Resource.Error -> {

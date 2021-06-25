@@ -1,7 +1,8 @@
 package com.theapache64.reky.ui.composable
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
@@ -24,7 +25,8 @@ interface ListItem {
 fun <T : ListItem> ListItems(
     scrollState: LazyListState,
     items: List<T>,
-    onItemClicked: (T) -> Unit
+    onItemClicked: (T) -> Unit,
+    onItemLongClicked: ((T) -> Unit)? = null
 ) {
     LazyColumn(
         state = scrollState
@@ -33,25 +35,33 @@ fun <T : ListItem> ListItems(
             item {
                 ListItemView(
                     item = item,
-                    onItemClicked = onItemClicked
+                    onItemClicked = onItemClicked,
+                    onItemLongClicked = onItemLongClicked
                 )
             }
         }
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun <T : ListItem> ListItemView(
+    modifier: Modifier = Modifier,
     item: T,
     onItemClicked: (T) -> Unit,
-    modifier: Modifier = Modifier
+    onItemLongClicked: ((T) -> Unit)? = null
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .clickable {
-                onItemClicked(item)
-            }
+            .combinedClickable(
+                onClick = {
+                    onItemClicked(item)
+                },
+                onLongClick = {
+                    onItemLongClicked?.invoke(item)
+                }
+            )
             .padding(10.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
