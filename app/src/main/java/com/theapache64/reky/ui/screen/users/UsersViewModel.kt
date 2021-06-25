@@ -58,7 +58,7 @@ class UsersViewModel @Inject constructor(
                 // Find name for saved numbers
                 .asSequence()
                 .map { identification ->
-                    if (identification.isNumber()) {
+                    val contact = if (identification.isNumber()) {
                         val idLength = identification.length
                         val last10Digits = identification.substring(idLength - 10, idLength)
                         // Search for the number in contacts
@@ -66,21 +66,21 @@ class UsersViewModel @Inject constructor(
                             .find { contact ->
                                 val regex = "${last10Digits}\$".toRegex()
                                 contact.number?.contains(regex) ?: false
-                            }?.name // Get name
-                            ?: identification // Couldn't find name let's move with the number then
+                            } ?: Contact( // or dummy contact
+                            null,
+                            identification,
+                            null
+                        )
                     } else {
                         // No need to check with contact. We already have a name
-                        identification
+                        allContacts.find { contact -> contact.name == identification } ?: Contact(
+                            null,
+                            identification,
+                            null
+                        )
                     }
-                }
-                // From name to contact
-                .map { name ->
-                    val contact = allContacts.find { contact -> contact.name == name } ?: Contact(
-                        null,
-                        name,
-                        null
-                    )
 
+                    // From name to contact
                     User(contact)
                 }
                 // Remove duplicate

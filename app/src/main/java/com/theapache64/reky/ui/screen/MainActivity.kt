@@ -13,8 +13,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.core.text.isDigitsOnly
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.asLiveData
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -59,6 +59,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        viewModel.dial.asLiveData().observe(this) { number ->
+            if (number.isNotBlank()) {
+                val intent = Intent(Intent.ACTION_DIAL).apply {
+                    data = Uri.parse("tel:$number")
+                }
+                startActivity(intent)
+            }
+        }
 
         setContent {
             val navController = rememberNavController()
@@ -117,12 +126,7 @@ class MainActivity : AppCompatActivity() {
                                 navController.navigate("$SCREEN_USER/$name/$number")
                             },
                             onUserLongClicked = {
-                                if (it.contact.name.isDigitsOnly()) {
-                                    val intent = Intent(Intent.ACTION_DIAL).apply {
-                                        data = Uri.parse("tel:${it.contact.name}")
-                                    }
-                                    startActivity(intent)
-                                }
+                                viewModel.onUserLongClicked(it)
                             },
                             usersScrollState = usersScrollState
                         )

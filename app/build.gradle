@@ -91,4 +91,7 @@ dependencies {
     // Kotlinx Coroutines Core : Coroutines support libraries for Kotlin
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0'
 
+
+    // LiveData Kotlin Extensions : Kotlin extensions for 'livedata' artifact
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.0-alpha02'
 }
