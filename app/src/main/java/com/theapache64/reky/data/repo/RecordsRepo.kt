@@ -26,6 +26,10 @@ class RecordsRepo @Inject constructor(
                     regEx = "^(?<name>.+?)-(?<dateTime>\\d+).\\w+\$".toRegex(),
                     dateTimeFormat = "yyyyMMddHHmmss"
                 ),
+                FileNameFormat(
+                    regEx = "^Call@(?<name>.+?)\\(.+?_(?<dateTime>\\d+).\\w+\$".toRegex(),
+                    dateTimeFormat = "yyyyMMddHHmmss"
+                ),
                 // TODO: Add more file formats to support more device
             )
         }
