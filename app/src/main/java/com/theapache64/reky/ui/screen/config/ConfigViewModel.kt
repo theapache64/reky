@@ -28,6 +28,9 @@ class ConfigViewModel @Inject constructor(
     private val _validationError = MutableStateFlow<Int?>(null)
     val validationError = _validationError.asStateFlow()
 
+    private val _isUnsupportedDevice = MutableStateFlow(false)
+    val isUnsupportedDevice = _isUnsupportedDevice.asStateFlow()
+
     fun onFinishClicked() {
         viewModelScope.launch {
             if (recordsDir.isEmpty() || !recordsDir.startsWith("/")) {
@@ -48,7 +51,7 @@ class ConfigViewModel @Inject constructor(
                     _validationError.value = null
                     _isConfigFinished.value = true
                 } else {
-                    _validationError.value = R.string.config_error_file_format
+                    _isUnsupportedDevice.value = true
                 }
             }
         }

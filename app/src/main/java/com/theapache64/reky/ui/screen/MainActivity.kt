@@ -114,6 +114,9 @@ class MainActivity : AppCompatActivity() {
                             },
                             onConfigFinished = {
                                 goToUsers(navController)
+                            },
+                            onFileAnIssueClicked = {
+                                launchIssues()
                             }
                         )
                     }
@@ -148,6 +151,14 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun launchIssues() {
+        val intent = Intent(Intent.ACTION_VIEW).apply {
+            data =
+                Uri.parse("https://github.com/theapache64/reky/issues/new/choose")
+        }
+        startActivity(intent)
     }
 
     private fun goToUsers(navController: NavHostController) {

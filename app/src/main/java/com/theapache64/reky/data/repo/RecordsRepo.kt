@@ -30,7 +30,7 @@ class RecordsRepo @Inject constructor(
                     regEx = "^Call@(?<name>.+?)\\(.+?_(?<dateTime>\\d+).\\w+\$".toRegex(),
                     dateTimeFormat = "yyyyMMddHHmmss"
                 ),
-                // TODO: Add more file formats to support more device
+                // TODO: Add more file formats to support more devices
             )
         }
     }

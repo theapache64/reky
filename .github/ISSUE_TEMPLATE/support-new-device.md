@@ -1,6 +1,6 @@
 ---
 name: New Device Support
-about: To support new device
+about: To support a new device
 title: New Device Support
 labels: new-device-support
 assignees: theapache64

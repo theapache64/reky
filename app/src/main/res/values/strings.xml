@@ -5,6 +5,7 @@
     <string name="config_title">Setup Reky</string>
     <string name="config_action_finish">FINISH</string>
     <string name="config_error_empty_dir">Please set the recordings directory</string>
-    <string name="config_error_file_format">Couldn\'t find actual file format. Please report</string>
+    <string name="config_unsupported_device">Ohh no! Looks like Reky doesn\'t support this device. Please file an issue</string>
     <string name="hint_search">Search</string>
+    <string name="action_file_an_issue">FILE AN ISSUE</string>
 </resources>
