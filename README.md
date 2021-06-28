@@ -11,13 +11,9 @@
 
 > A simple android app to browse your phone call recordings [Under Construction]
 
-## 📲 Supported Devices
-
-- OnePlus6
-
 ## ✅ TODO
 
-- [ ] Support more devices
+- [ ] Support more file name formats
 
 ## 🏗 Built-with
 
