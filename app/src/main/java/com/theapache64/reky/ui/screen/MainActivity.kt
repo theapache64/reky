@@ -10,7 +10,9 @@ import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -60,6 +62,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // Watching dial
         viewModel.dial.asLiveData().observe(this) { number ->
             if (number.isNotBlank()) {
                 val intent = Intent(Intent.ACTION_DIAL).apply {
@@ -76,79 +79,88 @@ class MainActivity : AppCompatActivity() {
                 val usersScrollState = rememberLazyListState()
                 val recordingScrollState = rememberLazyListState()
 
-                NavHost(navController = navController, startDestination = SCREEN_SPLASH) {
-                    // Splash Screen
-                    composable(SCREEN_SPLASH) {
-                        SplashScreen(
-                            onSplashFinished = { isConfigSet ->
-                                checkPermissionsOrFinish {
-                                    navController.popBackStack()
-                                    if (isConfigSet) {
-                                        goToUsers(navController)
-                                    } else {
-                                        // Need to set config
-                                        navController.popBackStack()
-                                        navController.navigate("config")
-                                    }
-                                }
-                            }
-                        )
-                    }
+                NavigationHost(navController, usersScrollState, recordingScrollState)
+            }
+        }
+    }
 
-                    composable(SCREEN_CONFIG) {
-
-                        val recordsDir by viewModel.pickedDirectory.collectAsState()
-
-                        ConfigScreen(
-                            recordsDir = recordsDir,
-                            onPickDirectoryClicked = {
-                                val dirPickIntent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE).apply {
-                                    addCategory(Intent.CATEGORY_DEFAULT)
-                                }
-                                dirPickLauncher.launch(
-                                    Intent.createChooser(
-                                        dirPickIntent,
-                                        "Choose Directory"
-                                    )
-                                )
-                            },
-                            onConfigFinished = {
+    @Composable
+    private fun NavigationHost(
+        navController: NavHostController,
+        usersScrollState: LazyListState,
+        recordingScrollState: LazyListState
+    ) {
+        NavHost(navController = navController, startDestination = SCREEN_SPLASH) {
+            // Splash Screen
+            composable(SCREEN_SPLASH) {
+                SplashScreen(
+                    onSplashFinished = { isConfigSet ->
+                        checkPermissionsOrFinish {
+                            navController.popBackStack()
+                            if (isConfigSet) {
                                 goToUsers(navController)
-                            },
-                            onFileAnIssueClicked = {
-                                launchIssues()
+                            } else {
+                                // Need to set config
+                                navController.popBackStack()
+                                navController.navigate("config")
                             }
-                        )
+                        }
                     }
+                )
+            }
 
-                    // Users
-                    composable(SCREEN_USERS) {
-                        UsersScreen(
-                            onUserClicked = {
-                                val (_, name, number) = it.contact
-                                navController.navigate("$SCREEN_USER/$name/$number")
-                            },
-                            onUserLongClicked = {
-                                viewModel.onUserLongClicked(it)
-                            },
-                            usersScrollState = usersScrollState
-                        )
-                    }
+            composable(SCREEN_CONFIG) {
 
-                    // User
-                    composable("$SCREEN_USER/{${UserViewModel.KEY_USER_NAME}}/{${UserViewModel.KEY_USER_MOBILE}}") { navBackStackEntry ->
-                        UserScreen(
-                            viewModel = hiltViewModel(backStackEntry = navBackStackEntry),
-                            recordingScrollState = recordingScrollState,
-                            onRecordingClicked = {
-                                val targetIntent = Intent(Intent.ACTION_VIEW).apply {
-                                    setDataAndType(Uri.parse(it.file.absolutePath), "audio/*")
-                                }
-                                startActivity(Intent.createChooser(targetIntent, "Play with"))
-                            }
+                val recordsDir by viewModel.pickedDirectory.collectAsState()
+
+                ConfigScreen(
+                    recordsDir = recordsDir,
+                    onPickDirectoryClicked = {
+                        val dirPickIntent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE).apply {
+                            addCategory(Intent.CATEGORY_DEFAULT)
+                        }
+                        dirPickLauncher.launch(
+                            Intent.createChooser(
+                                dirPickIntent,
+                                "Choose Directory"
+                            )
                         )
+                    },
+                    onConfigFinished = {
+                        goToUsers(navController)
+                    },
+                    onFileAnIssueClicked = {
+                        launchIssues()
                     }
-                }
+                )
+            }
+
+            // Users
+            composable(SCREEN_USERS) {
+                UsersScreen(
+                    onUserClicked = {
+                        val (_, name, number) = it.contact
+                        navController.navigate("$SCREEN_USER/$name/$number")
+                    },
+                    onUserLongClicked = {
+                        viewModel.onUserLongClicked(it)
+                    },
+                    usersScrollState = usersScrollState
+                )
+            }
+
+            // User
+            composable("$SCREEN_USER/{${UserViewModel.KEY_USER_NAME}}/{${UserViewModel.KEY_USER_MOBILE}}") { navBackStackEntry ->
+                UserScreen(
+                    viewModel = hiltViewModel(backStackEntry = navBackStackEntry),
+                    recordingScrollState = recordingScrollState,
+                    onRecordingClicked = {
+                        val targetIntent = Intent(Intent.ACTION_VIEW).apply {
+                            setDataAndType(Uri.parse(it.file.absolutePath), "audio/*")
+                        }
+                        startActivity(Intent.createChooser(targetIntent, "Play with"))
+                    }
+                )
             }
         }
     }
