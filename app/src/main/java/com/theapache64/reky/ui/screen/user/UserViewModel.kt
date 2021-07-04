@@ -48,12 +48,22 @@ class UserViewModel @Inject constructor(
             val fileNameFormat = configRepo.getFileNameFormat()!!
             val inputDateTimeFormat =
                 SimpleDateFormat(fileNameFormat.dateTimeFormat, Locale.getDefault())
+
+            val searchName = userName.replace(" ", "") // remove space
+            val searchMobile = userMobile.let { mobile ->
+                if (mobile.length > 10) {
+                    mobile.substring(mobile.length - 10, mobile.length)
+                } else {
+                    mobile
+                }
+            }
+
             val recordings: List<Recording> = recordsRepo
                 .getRecords(
                     fileNameFormat = configRepo.getFileNameFormat()!!,
                     recordsDir = configRepo.getConfig()!!.recordsDir
                 )
-                .filter { it.name.contains(userName) || it.name.contains(userMobile) }
+                .filter { it.name.contains(searchName) || it.name.contains(searchMobile) }
                 .map { file ->
                     val duration = millisToDuration(recordsRepo.getDurationInMillis(file))
                     val recordedAt = parseRecordedAt(inputDateTimeFormat, fileNameFormat, file.name)
